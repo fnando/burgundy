@@ -2,9 +2,13 @@ module Burgundy
   class Collection
     include Enumerable
 
-    def initialize(items, wrapping_class)
+    def initialize(items, wrapping_class = nil)
       @items = items
       @wrapping_class = wrapping_class
+    end
+
+    def empty?
+      !any?
     end
 
     def each(&block)
@@ -12,7 +16,11 @@ module Burgundy
     end
 
     def to_ary
-      @cache ||= @wrapping_class.map(@items.to_a)
+      @cache ||=  if @wrapping_class
+                    @wrapping_class.map(@items.to_a)
+                  else
+                    @items.to_a
+                  end
     end
     alias_method :to_a, :to_ary
   end

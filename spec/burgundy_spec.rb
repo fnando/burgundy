@@ -24,6 +24,14 @@ describe Burgundy do
     expect(Burgundy::Collection).to include(Enumerable)
   end
 
+  it 'implements #empty?' do
+    collection = Burgundy::Collection.new([1,2,3])
+    expect(collection).not_to be_empty
+
+    collection = Burgundy::Collection.new([])
+    expect(collection).to be_empty
+  end
+
   it "responds to the routes method" do
     item = wrapper.new("hello")
 
