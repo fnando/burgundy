@@ -17,7 +17,7 @@ module Burgundy
 
     def to_ary
       @cache ||=  if @wrapping_class
-                    @wrapping_class.map(@items.to_a)
+                    @items.map {|item| @wrapping_class.new(item) }
                   else
                     @items.to_a
                   end

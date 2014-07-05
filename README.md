@@ -56,6 +56,8 @@ class WorkshopsController < ApplicationController
 end
 ```
 
+or just call `WorkshopPresenter.wrap(Workshop.sorted_by_name)`. Both ways return a `Burgundy::Collection` instance.
+
 The query will be performed only when needed, usually on the view. The collection is an enumerable object and can be passed directly to the `render` method. Each item will be wrapped by the provided class.
 
 ```erb
