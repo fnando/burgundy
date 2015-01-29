@@ -47,24 +47,24 @@ describe Burgundy do
   it 'responds to the routes method' do
     item = wrapper.new('hello')
 
-    expect(item.respond_to?(:routes, true)).to be
-    expect(item.respond_to?(:r, true)).to be
+    expect(item).to respond_to(:routes)
+    expect(item).to respond_to(:r)
   end
 
   it 'responds to the helpers method' do
     item = wrapper.new('hello')
 
-    expect(item.respond_to?(:helpers, true)).to be
-    expect(item.respond_to?(:h, true)).to be
+    expect(item).to respond_to(:helpers)
+    expect(item).to respond_to(:h)
   end
 
   it 'responds to the I18n methods' do
     item = wrapper.new('hello')
 
-    expect(item.respond_to?(:translate, true)).to be
-    expect(item.respond_to?(:t, true)).to be
-    expect(item.respond_to?(:localize, true)).to be
-    expect(item.respond_to?(:l, true)).to be
+    expect(item).to respond_to(:translate)
+    expect(item).to respond_to(:t)
+    expect(item).to respond_to(:localize)
+    expect(item).to respond_to(:l)
   end
 
   it 'returns route using action mailer options' do
