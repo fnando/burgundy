@@ -8,6 +8,3 @@ require 'rspec/rails'
 
 require 'burgundy'
 I18n.locale = :en
-
-RSpec.configure do |config|
-end
