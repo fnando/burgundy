@@ -1,5 +1,7 @@
 # Burgundy
 
+[![Build Status](https://travis-ci.org/fnando/burgundy.svg)](https://travis-ci.org/fnando/burgundy)
+
 A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 100 lines.
 
 ## Installation
