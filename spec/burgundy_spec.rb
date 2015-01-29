@@ -27,6 +27,11 @@ describe Burgundy do
     expect(collection.first).to eql(1)
   end
 
+  it 'delegate collection calls' do
+    collection = Burgundy::Collection.new([1,2,3], wrapper)
+    expect(collection.size).to eql(3)
+  end
+
   it 'includes Enumerable' do
     expect(Burgundy::Collection).to include(Enumerable)
   end

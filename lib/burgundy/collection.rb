@@ -1,10 +1,11 @@
 module Burgundy
-  class Collection
+  class Collection < SimpleDelegator
     include Enumerable
 
     def initialize(items, wrapping_class = nil)
       @items = items
       @wrapping_class = wrapping_class
+      __setobj__(@items)
     end
 
     def empty?
