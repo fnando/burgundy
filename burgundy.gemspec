@@ -1,6 +1,7 @@
 require './lib/burgundy/version'
 
 Gem::Specification.new do |spec|
+  spec.required_ruby_version = '>= 2.1.0'
   spec.name          = 'burgundy'
   spec.version       = Burgundy::VERSION
   spec.authors       = ['Nando Vieira']
