@@ -9,15 +9,21 @@ A simple wrapper for objects (think of Burgundy as a decorator/presenter) in les
 
 Add this line to your application's Gemfile:
 
-    gem 'burgundy'
+```ruby
+gem 'burgundy'
+```
 
 And then execute:
 
-    $ bundle
+```console
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install burgundy
+```console
+$ gem install burgundy
+```
 
 ## Usage
 
