@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/fnando/burgundy.svg)](https://travis-ci.org/fnando/burgundy)
 [![Code Climate](https://codeclimate.com/github/fnando/burgundy/badges/gpa.svg)](https://codeclimate.com/github/fnando/burgundy)
 
-A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 100 lines.
+A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 150 lines.
 
 ## Installation
 
@@ -78,6 +78,42 @@ So you can just put this on your environment file
 config.action_controller.default_url_options = {
   host: "example.org"
 }
+```
+
+You can map attributes into a hash; I use this strategy for using presenters on API responses (so I can skip adding yet another dependency to my project).
+
+```ruby
+class UserPresenter < Burgundy::Item
+  attributes :username, :name, :email
+
+  def profile_url
+    routes.profile_url(item.username)
+  end
+end
+
+UserPresenter.new(User.first).attributes
+#=> {:username=>'johndoe', :name=>'John Doe', :email=>'john@example.org'}
+
+UserPresenter.new(User.first).to_hash
+#=> {:username=>'johndoe', :name=>'John Doe', :email=>'john@example.org'}
+
+UserPresenter.new(User.first).to_h
+#=> {:username=>'johndoe', :name=>'John Doe', :email=>'john@example.org'}
+```
+
+If you want to remap an attribute, provide a hash.
+
+```ruby
+class UserPresenter < Burgundy::Item
+  attributes :name, :email, :username => :login
+
+  def profile_url
+    routes.profile_url(item.username)
+  end
+end
+
+UserPresenter.new(User.first).attributes
+#=> {:login=>'johndoe', :name=>'John Doe', :email=>'john@example.org'}
 ```
 
 ## Contributing

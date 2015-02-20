@@ -88,4 +88,50 @@ describe Burgundy do
 
     expect(item.profile_url).to eql('http://example.org/johndoe')
   end
+
+  it 'returns attributes' do
+    wrapper = Class.new(Burgundy::Item) do
+      attributes :name, :email
+    end
+
+    object = OpenStruct.new(name: 'John Doe', email: 'john@example.org', username: 'johndoe')
+    item = wrapper.new(object)
+
+    expect(item.attributes).to eq(name: 'John Doe', email: 'john@example.org')
+  end
+
+  it 'returns remaps attribute' do
+    wrapper = Class.new(Burgundy::Item) do
+      attributes :name, :username => :login
+    end
+
+    object = OpenStruct.new(name: 'John Doe', username: 'johndoe')
+    item = wrapper.new(object)
+
+    expect(item.attributes).to eq(name: 'John Doe', login: 'johndoe')
+  end
+
+  it 'implements to_hash/to_h protocol' do
+    wrapper = Class.new(Burgundy::Item) do
+      attributes :name, :email
+    end
+
+    object = OpenStruct.new(name: 'John Doe', email: 'john@example.org', username: 'johndoe')
+    item = wrapper.new(object)
+
+    expect(item.attributes).to eq(item.to_hash)
+    expect(item.attributes).to eq(item.to_h)
+  end
+
+  it 'inherits attributes' do
+    parent_wrapper = Class.new(Burgundy::Item) do
+      attributes :name, :username
+    end
+
+    wrapper = Class.new(parent_wrapper)
+    object = OpenStruct.new(name: 'John Doe', username: 'johndoe')
+    item = wrapper.new(object)
+
+    expect(item.attributes).to eq(name: 'John Doe', username: 'johndoe')
+  end
 end
