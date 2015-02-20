@@ -8,10 +8,6 @@ module Burgundy
       __setobj__(@items)
     end
 
-    def empty?
-      !any?
-    end
-
     def each(&block)
       to_ary.each(&block)
     end
