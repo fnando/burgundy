@@ -1,4 +1,6 @@
-## [unreleased]
+## [0.2.0] - 2015-10-14
+
+### Added
 
 - `Burgundy::Collection` and `Burgundy::Item.wrap` now delegates additional arguments to `Burgundy::Item#initialize`.
 
