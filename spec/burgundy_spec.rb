@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Burgundy do
   let(:wrapper) { Class.new(Burgundy::Item) }
+  let(:wrapper_with_args) { ItemWithAdditionalArgs }
 
   it 'delegates everything' do
     item = wrapper.new('hello')
@@ -16,6 +17,15 @@ describe Burgundy do
     expect(items.first.to_i).to eql(1)
   end
 
+  it 'wraps items with additional arguments' do
+    items = wrapper_with_args.wrap([1], 2, 3)
+
+    expect(items.class).to eql(Burgundy::Collection)
+    expect(items.first).to be_a(wrapper_with_args)
+    expect(items.first.item).to eql(1)
+    expect(items.first.args).to eql([2, 3])
+  end
+
   it 'deprecates Burgundy::Item.map' do
     message = 'Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead.'
     expect(wrapper).to receive(:warn).with(message)
@@ -25,6 +35,13 @@ describe Burgundy do
   it 'wraps items in collection' do
     collection = Burgundy::Collection.new([1,2,3], wrapper)
     expect(collection.first).to eql(1)
+  end
+
+  it 'wraps items with additional arguments' do
+    collection = Burgundy::Collection.new([1], wrapper_with_args, 2, 3)
+
+    expect(collection.first.item).to eq(1)
+    expect(collection.first.args).to eq([2, 3])
   end
 
   it 'delegates collection calls' do

@@ -2,9 +2,10 @@ module Burgundy
   class Collection < SimpleDelegator
     include Enumerable
 
-    def initialize(items, wrapping_class = nil)
+    def initialize(items, wrapping_class = nil, *args)
       @items = items
       @wrapping_class = wrapping_class
+      @args = args
       __setobj__(@items)
     end
 
@@ -14,7 +15,7 @@ module Burgundy
 
     def to_ary
       @cache ||=  if @wrapping_class
-                    @items.map {|item| @wrapping_class.new(item) }
+                    @items.map {|item| @wrapping_class.new(item, *@args) }
                   else
                     @items.to_a
                   end
