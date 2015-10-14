@@ -6,8 +6,8 @@ module Burgundy
       child.attributes(attributes)
     end
 
-    def self.wrap(collection)
-      Collection.new(collection, self)
+    def self.wrap(collection, *args)
+      Collection.new(collection, self, *args)
     end
 
     def self.map(collection)

@@ -1,3 +1,7 @@
+## [unreleased]
+
+- `Burgundy::Collection` and `Burgundy::Item.wrap` now delegates additional arguments to `Burgundy::Item#initialize`.
+
 ## [0.1.0] - 2015-02-20
 
 ### Added
@@ -12,7 +16,7 @@
 
 ### Added
 
-- `Burgundy::Item.Collection` now includes `Enumerable`.
+- `Burgundy::Collection` now includes `Enumerable`.
 
 ## [0.0.3] - 2014-07-05
 

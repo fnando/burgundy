@@ -67,7 +67,21 @@ end
 
 or just call `WorkshopPresenter.wrap(Workshop.sorted_by_name)`. Both ways return a `Burgundy::Collection` instance.
 
-The query will be performed only when needed, usually on the view. The collection is an enumerable object and can be passed directly to the `render` method. Each item will be wrapped by the provided class.
+You may need to provide additional arguments to the item class. On your collection, all additional arguments will be delegated to the item classe, like the following example:
+
+```ruby
+WorkshopPresenter.wrap(Workshop.all, current_user)
+Burgundy::Collection.new(Workshop.all, WorkshopPresenter, current_user)
+
+class WorkshopPresenter < Burgundy::Item
+  def initialize(workshop, current_user)
+    super(workshop)
+    @current_user = current_user
+  end
+end
+```
+
+The query will be performed only when needed, usually on the view (easier to cache). The collection is an enumerable object and can be passed directly to the `render` method. Each item will be wrapped by the provided class.
 
 ```erb
 <%= render @workshops %>
