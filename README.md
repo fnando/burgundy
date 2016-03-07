@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/fnando/burgundy.svg)](https://travis-ci.org/fnando/burgundy)
 [![Code Climate](https://codeclimate.com/github/fnando/burgundy/badges/gpa.svg)](https://codeclimate.com/github/fnando/burgundy)
+[![Gem Version](https://badge.fury.io/rb/burgundy.svg)](http://badge.fury.io/rb/burgundy)
 
 A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 150 lines.
 
