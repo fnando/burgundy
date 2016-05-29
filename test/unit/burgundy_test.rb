@@ -46,6 +46,18 @@ class BurgundyTest < Minitest::Test
     assert_equal 3, collection.size
   end
 
+  test "collection uses to_a result when have no wrapper class" do
+    items = Class.new do
+      def to_a
+        [1, 2, 3]
+      end
+    end.new
+
+    collection = Burgundy::Collection.new(items)
+
+    assert_equal [1, 2, 3], collection.to_ary
+  end
+
   test "includes Enumerable" do
     assert Burgundy::Collection.included_modules.include?(Enumerable)
   end
