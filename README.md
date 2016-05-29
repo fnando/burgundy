@@ -1,8 +1,10 @@
 # Burgundy
 
-[![Build Status](https://travis-ci.org/fnando/burgundy.svg)](https://travis-ci.org/fnando/burgundy)
+[![Travis-CI](https://travis-ci.org/fnando/burgundy.png)](https://travis-ci.org/fnando/burgundy)
 [![Code Climate](https://codeclimate.com/github/fnando/burgundy/badges/gpa.svg)](https://codeclimate.com/github/fnando/burgundy)
-[![Gem Version](https://badge.fury.io/rb/burgundy.svg)](http://badge.fury.io/rb/burgundy)
+[![Test Coverage](https://codeclimate.com/github/fnando/burgundy/badges/coverage.svg)](https://codeclimate.com/github/fnando/burgundy/coverage)
+[![Gem](https://img.shields.io/gem/v/burgundy.svg)](https://rubygems.org/gems/burgundy)
+[![Gem](https://img.shields.io/gem/dt/burgundy.svg)](https://rubygems.org/gems/burgundy)
 
 A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 150 lines.
 

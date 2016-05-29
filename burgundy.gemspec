@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rails"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "pry-meta"
+  spec.add_development_dependency "codeclimate-test-reporter"
 end
