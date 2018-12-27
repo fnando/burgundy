@@ -4,9 +4,7 @@ cache: bundler
 notifications:
   email: false
 rvm:
-- 2.1.8
-- 2.2.3
-- 2.3.0
+- 2.5.2
 env:
   global:
     secure: XoATcnpSEbT7IbJFsAN+fYOcMNsO2jtARtktQMLehRVoGh3UQ6IBSAzDF9fZAn1yfrZLTG0tcupN/NeXTvWoU3phk5vVELyNiU/gE2VjpnWYGMNPHoefX6gvvQQ6RMO2/Hqc3yOyHrxjGUqdWWD25WQg2u/ifLQZAy1Le3sFG2s=

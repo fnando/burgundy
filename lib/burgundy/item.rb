@@ -11,7 +11,7 @@ module Burgundy
     end
 
     def self.map(collection)
-      warn 'Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead.'
+      warn "Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead."
       wrap(collection)
     end
 
@@ -20,7 +20,7 @@ module Burgundy
 
       if args.any?
         @attributes = {}
-        @attributes = args.pop if args.last.kind_of?(Hash)
+        @attributes = args.pop if args.last.is_a?(Hash)
         @attributes.merge!(args.zip(args).to_h)
       end
 
