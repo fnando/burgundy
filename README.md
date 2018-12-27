@@ -1,6 +1,6 @@
 # Burgundy
 
-[![Travis-CI](https://travis-ci.org/fnando/burgundy.png)](https://travis-ci.org/fnando/burgundy)
+[![Travis-CI](https://travis-ci.org/fnando/burgundy.svg)](https://travis-ci.org/fnando/burgundy)
 [![Code Climate](https://codeclimate.com/github/fnando/burgundy/badges/gpa.svg)](https://codeclimate.com/github/fnando/burgundy)
 [![Test Coverage](https://codeclimate.com/github/fnando/burgundy/badges/coverage.svg)](https://codeclimate.com/github/fnando/burgundy/coverage)
 [![Gem](https://img.shields.io/gem/v/burgundy.svg)](https://rubygems.org/gems/burgundy)

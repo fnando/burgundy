@@ -5,6 +5,12 @@ notifications:
   email: false
 rvm:
 - 2.5.2
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 env:
   global:
-    secure: XoATcnpSEbT7IbJFsAN+fYOcMNsO2jtARtktQMLehRVoGh3UQ6IBSAzDF9fZAn1yfrZLTG0tcupN/NeXTvWoU3phk5vVELyNiU/gE2VjpnWYGMNPHoefX6gvvQQ6RMO2/Hqc3yOyHrxjGUqdWWD25WQg2u/ifLQZAy1Le3sFG2s=
+    secure: LIU2voUl12O5yOXGTwOFOJgdv49YOpFN4FyH3Eqvc48tvy3cRypMuqvFiG/KL4jQvE2IydZZmG+DtsgTsi6kOe5cYlxeU2fTiK9dflNqBIV7+CfwXqguUAcwJLW1dt6Gtmis2VuOffJDBqpojTpFDrUosDdISc1gkOXh4+8yHQA=

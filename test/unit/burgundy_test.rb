@@ -29,7 +29,7 @@ class BurgundyTest < Minitest::Test
   test "deprecates Burgundy::Item.map" do
     message = "Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead."
 
-    out, err = capture_io do
+    _, err = capture_io do
       wrapper.map([1, 2, 3])
     end
 
@@ -56,10 +56,6 @@ class BurgundyTest < Minitest::Test
     collection = Burgundy::Collection.new(items)
 
     assert_equal [1, 2, 3], collection.to_ary
-  end
-
-  test "includes Enumerable" do
-    assert Burgundy::Collection.included_modules.include?(Enumerable)
   end
 
   test "implements #empty?" do
@@ -95,24 +91,28 @@ class BurgundyTest < Minitest::Test
 
   test "returns route using action mailer options" do
     wrapper = Class.new(Burgundy::Item) do
-      def profile_url; routes.profile_url(username) end
+      def profile_url
+        routes.profile_url(username)
+      end
     end
 
-    Rails.configuration.action_mailer.default_url_options = {host: "example.org"}
+    Rails.configuration.action_mailer.default_url_options = {host: "example.com"}
     item = wrapper.new OpenStruct.new(username: "johndoe")
 
-    assert_equal "http://example.org/johndoe", item.profile_url
+    assert_equal "http://example.com/johndoe", item.profile_url
   end
 
   test "returns route using action controller options" do
     wrapper = Class.new(Burgundy::Item) do
-      def profile_url; routes.profile_url(username) end
+      def profile_url
+        routes.profile_url(username)
+      end
     end
 
-    Rails.application.routes.default_url_options = {host: "example.org"}
+    Rails.application.routes.default_url_options = {host: "example.com"}
     item = wrapper.new OpenStruct.new(username: "johndoe")
 
-    assert_equal "http://example.org/johndoe", item.profile_url
+    assert_equal "http://example.com/johndoe", item.profile_url
   end
 
   test "returns attributes" do
@@ -120,10 +120,10 @@ class BurgundyTest < Minitest::Test
       attributes :name, :email
     end
 
-    object = OpenStruct.new(name: "John Doe", email: "john@example.org", username: "johndoe")
+    object = OpenStruct.new(name: "John Doe", email: "john@example.com", username: "johndoe")
     item = wrapper.new(object)
 
-    expected = {name: "John Doe", email: "john@example.org"}
+    expected = {name: "John Doe", email: "john@example.com"}
 
     assert_equal expected, item.attributes
   end
@@ -146,7 +146,7 @@ class BurgundyTest < Minitest::Test
       attributes :name, :email
     end
 
-    object = OpenStruct.new(name: "John Doe", email: "john@example.org", username: "johndoe")
+    object = OpenStruct.new(name: "John Doe", email: "john@example.com", username: "johndoe")
     item = wrapper.new(object)
 
     assert_equal item.to_hash, item.attributes
@@ -165,5 +165,22 @@ class BurgundyTest < Minitest::Test
     expected = {name: "John Doe", username: "johndoe"}
 
     assert_equal expected, item.attributes
+  end
+
+  test "always wrap items fetched from collection" do
+    wrapper = Class.new(Burgundy::Item)
+    collection = wrapper.wrap([1])
+
+    assert_kind_of wrapper, collection[0]
+    assert_kind_of wrapper, collection.fetch(0)
+    assert_kind_of wrapper, collection.at(0)
+  end
+
+  test "responds to methods present on the underying wrapped object" do
+    wrapper = Class.new(Burgundy::Item)
+    collection = wrapper.wrap([1])
+
+    assert collection.respond_to?(:first)
+    refute collection.respond_to?(:missing)
   end
 end

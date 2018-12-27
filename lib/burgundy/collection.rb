@@ -1,16 +1,17 @@
 module Burgundy
-  class Collection < SimpleDelegator
-    include Enumerable
-
+  class Collection
     def initialize(items, wrapping_class = nil, *args)
       @items = items
       @wrapping_class = wrapping_class
       @args = args
-      __setobj__(@items)
     end
 
-    def each(&block)
-      to_ary.each(&block)
+    def method_missing(name, *args, &block)
+      to_ary.send(name, *args, &block)
+    end
+
+    def respond_to?(name, include_all = false)
+      to_ary.respond_to?(name, include_all)
     end
 
     def to_ary
