@@ -189,6 +189,21 @@ class BurgundyTest < Minitest::Test
     assert_equal item.as_json(:name), item.attributes
   end
 
+  test "implements to_json protocol" do
+    wrapper = Class.new(Burgundy::Item) do
+      attributes :name
+    end
+
+    object = OpenStruct.new(
+      name: "John Doe",
+      email: "john@example.com",
+      username: "johndoe"
+    )
+    item = wrapper.new(object)
+
+    assert_equal %[{"name":"John Doe"}], item.to_json
+  end
+
   test "inherits attributes" do
     parent_wrapper = Class.new(Burgundy::Item) do
       attributes :name, :username

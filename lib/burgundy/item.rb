@@ -44,6 +44,10 @@ module Burgundy
       attributes
     end
 
+    def to_json(*)
+      as_json.to_json
+    end
+
     alias to_hash attributes
     alias to_h attributes
   end

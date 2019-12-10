@@ -1,3 +1,7 @@
+## [Unreleased]
+
+- Add `Burgundy::Item#to_json(*)`.
+
 ## [0.4.0] - 2019-12-10
 
 - Add `Burgundy::Item#as_json(*)`, which returns `Burgundy::Item#attributes`.
