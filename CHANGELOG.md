@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.5.0] - 2019-12-10
 
 - Add `Burgundy::Item#to_json(*)`.
 
