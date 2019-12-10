@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Burgundy
   class Collection
     def initialize(items, wrapping_class = nil, *args)
@@ -6,7 +8,7 @@ module Burgundy
       @args = args
     end
 
-    def method_missing(name, *args, &block)
+    def method_missing(name, *args, &block) # rubocop:disable Style/MissingRespondToMissing, Style/MethodMissingSuper
       to_ary.send(name, *args, &block)
     end
 
@@ -21,6 +23,6 @@ module Burgundy
                     @items.to_a
                   end
     end
-    alias_method :to_a, :to_ary
+    alias to_a to_ary
   end
 end

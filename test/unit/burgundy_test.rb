@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class BurgundyTest < Minitest::Test
@@ -27,7 +29,8 @@ class BurgundyTest < Minitest::Test
   end
 
   test "deprecates Burgundy::Item.map" do
-    message = "Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead."
+    message =
+      "Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead."
 
     _, err = capture_io do
       wrapper.map([1, 2, 3])
@@ -80,6 +83,12 @@ class BurgundyTest < Minitest::Test
     assert_respond_to item, :h
   end
 
+  test "makes helpers accessible" do
+    item = wrapper.new("hello")
+
+    assert_equal "less than a minute", item.helpers.time_ago_in_words(Time.now)
+  end
+
   test "responds to the I18n methods" do
     item = wrapper.new("hello")
 
@@ -96,7 +105,11 @@ class BurgundyTest < Minitest::Test
       end
     end
 
-    Rails.configuration.action_mailer.default_url_options = {host: "example.com"}
+    Rails
+      .configuration
+      .action_mailer
+      .default_url_options = {host: "example.com"}
+
     item = wrapper.new OpenStruct.new(username: "johndoe")
 
     assert_equal "http://example.com/johndoe", item.profile_url
@@ -115,12 +128,29 @@ class BurgundyTest < Minitest::Test
     assert_equal "http://example.com/johndoe", item.profile_url
   end
 
+  test "returns to_param" do
+    klass = Class.new do
+      def to_param
+        "some-param"
+      end
+    end
+
+    wrapper = Class.new(Burgundy::Item)
+    item = wrapper.new(klass.new)
+
+    assert_equal "some-param", item.to_param
+  end
+
   test "returns attributes" do
     wrapper = Class.new(Burgundy::Item) do
       attributes :name, :email
     end
 
-    object = OpenStruct.new(name: "John Doe", email: "john@example.com", username: "johndoe")
+    object = OpenStruct.new(
+      name: "John Doe",
+      email: "john@example.com",
+      username: "johndoe"
+    )
     item = wrapper.new(object)
 
     expected = {name: "John Doe", email: "john@example.com"}
@@ -130,7 +160,7 @@ class BurgundyTest < Minitest::Test
 
   test "returns remaps attribute" do
     wrapper = Class.new(Burgundy::Item) do
-      attributes :name, :username => :login
+      attributes :name, username: :login
     end
 
     object = OpenStruct.new(name: "John Doe", username: "johndoe")
@@ -141,16 +171,22 @@ class BurgundyTest < Minitest::Test
     assert_equal expected, item.attributes
   end
 
-  test "implements to_hash/to_h protocol" do
+  test "implements to_hash/to_h/as_json protocols" do
     wrapper = Class.new(Burgundy::Item) do
       attributes :name, :email
     end
 
-    object = OpenStruct.new(name: "John Doe", email: "john@example.com", username: "johndoe")
+    object = OpenStruct.new(
+      name: "John Doe",
+      email: "john@example.com",
+      username: "johndoe"
+    )
     item = wrapper.new(object)
 
     assert_equal item.to_hash, item.attributes
     assert_equal item.to_h, item.attributes
+    assert_equal item.as_json, item.attributes
+    assert_equal item.as_json(:name), item.attributes
   end
 
   test "inherits attributes" do

@@ -1,0 +1,13 @@
+---
+
+inherit_gem:
+  rubocop-fnando: .rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - test/dummy/**/*
+
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*

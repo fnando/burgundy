@@ -1,3 +1,11 @@
+## Unreleased
+
+- Add `Burgundy::Item#as_json(*)`, which returns `Burgundy::Item#attributes`.
+
+## [0.3.0] - 2018-12-26
+
+- Stop using `Delegator` and use `method_missing` instead.
+
 ## [0.2.0] - 2015-10-14
 
 ### Added

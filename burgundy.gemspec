@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "./lib/burgundy/version"
 
 Gem::Specification.new do |spec|
@@ -5,12 +7,12 @@ Gem::Specification.new do |spec|
   spec.version       = Burgundy::VERSION
   spec.authors       = ["Nando Vieira"]
   spec.email         = ["fnando.vieira@gmail.com"]
-  spec.description   = "A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 100 lines."
+  spec.description   = "A simple wrapper for objects in less than 100 lines."
   spec.summary       = spec.description
   spec.homepage      = "http://github.com/fnando/burgundy"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   spec.executables   = spec.files.grep(%r{^bin/}) {|f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
@@ -20,5 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-meta"
   spec.add_development_dependency "rails"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-fnando"
   spec.add_development_dependency "simplecov"
 end

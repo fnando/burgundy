@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Be sure to restart your server when you modify this file.
 
 # Your secret key is used for verifying the integrity of signed cookies.
@@ -9,4 +11,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Dummy::Application.config.secret_key_base = 'ad57e0c56963bee4eca9bccd6a9a0f3d5a176af9fed341f4debccbb050326066a9181b9502ea296e838548f75b7df7962268ed89c51e13466975606c8737afef'
+Dummy::Application.config.secret_key_base = "ad57e0c56963bee4eca9bccd6a9a0f3d5a176af9fed341f4debccbb050326066a9181b9502ea296e838548f75b7df7962268ed89c51e13466975606c8737afef"

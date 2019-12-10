@@ -1,12 +1,16 @@
+# frozen_string_literal: true
+
 module Burgundy
   module UrlMethods
     def default_url_options
       action_mailer_default_url_options ||
-      Rails.application.routes.default_url_options
+        Rails.application.routes.default_url_options
     end
 
     def action_mailer_default_url_options
-      Rails.configuration.action_mailer.default_url_options if Rails.configuration.respond_to?(:action_mailer)
+      return unless Rails.configuration.respond_to?(:action_mailer)
+
+      Rails.configuration.action_mailer.default_url_options
     end
   end
 
@@ -20,7 +24,7 @@ module Burgundy
     def helpers
       ApplicationController.helpers
     end
-    alias_method :h, :helpers
+    alias h helpers
   end
 
   module RouteHelpers
@@ -43,14 +47,14 @@ module Burgundy
       item.to_param
     end
 
-    def eql?(obj)
-      obj == self || item.eql?(obj)
+    def eql?(other)
+      other == self || item.eql?(other)
     end
 
     def routes
       self.class.routes
     end
-    alias_method :r, :routes
+    alias r routes
   end
 
   class Item

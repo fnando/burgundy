@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Burgundy
   class Item < SimpleDelegator
     attr_reader :item
@@ -38,7 +40,11 @@ module Burgundy
       end
     end
 
-    alias_method :to_hash, :attributes
-    alias_method :to_h, :attributes
+    def as_json(*)
+      attributes
+    end
+
+    alias to_hash attributes
+    alias to_h attributes
   end
 end
