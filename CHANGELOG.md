@@ -1,4 +1,4 @@
-## unreleased
+## [0.6.0] - 2020-02-08
 
 - Allow initializing `Burgundy::Item` without passing a delegating object.
 
