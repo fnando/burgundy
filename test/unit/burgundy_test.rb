@@ -11,6 +11,37 @@ class BurgundyTest < Minitest::Test
     assert_equal "HELLO", item.upcase
   end
 
+  test "allows initializing item without a delegating object" do
+    item = wrapper.new
+
+    assert item
+  end
+
+  test "raises exception when calling methods without delegating object" do
+    wrapper = Class.new(Burgundy::Item) do
+      def self.name
+        "MyDecorator"
+      end
+    end
+
+    item = wrapper.new
+
+    error = assert_raises(ArgumentError) { item.missing_attribute }
+
+    error_message = %w[
+      MyDecorator was initialized without a delegating object and didn't
+      implement MyDecorator#missing_attribute
+    ].join(" ")
+
+    line_reference =
+      "#{__FILE__}:29:in `block (2 levels) in <class:BurgundyTest>'"
+
+    error_message = "#{error_message}\n#{line_reference}"
+
+    assert_equal ArgumentError, error.class
+    assert_equal error_message, error.message
+  end
+
   test "wraps items" do
     items = wrapper.wrap([1, 2, 3])
 

@@ -1,3 +1,7 @@
+## unreleased
+
+- Allow initializing `Burgundy::Item` without passing a delegating object.
+
 ## [0.5.0] - 2019-12-10
 
 - Add `Burgundy::Item#to_json(*)`.
@@ -14,13 +18,15 @@
 
 ### Added
 
-- `Burgundy::Collection` and `Burgundy::Item.wrap` now delegates additional arguments to `Burgundy::Item#initialize`.
+- `Burgundy::Collection` and `Burgundy::Item.wrap` now delegates additional
+  arguments to `Burgundy::Item#initialize`.
 
 ## [0.1.0] - 2015-02-20
 
 ### Added
 
-- Add `Burgundy::Item#attributes`. Now is possible to easily collect attributes as a hash.
+- Add `Burgundy::Item#attributes`. Now is possible to easily collect attributes
+  as a hash.
 
 ### Changed
 
@@ -46,7 +52,8 @@
 
 ### Changed
 
-- `Burgundy::Collection#initialize` doesn't require a wrapping class anymore. This makes ActiveRecord collections easier to work.
+- `Burgundy::Collection#initialize` doesn't require a wrapping class anymore.
+  This makes ActiveRecord collections easier to work.
 
 ## [0.0.1] - 2013-10-24
 

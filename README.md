@@ -6,7 +6,8 @@
 [![Gem](https://img.shields.io/gem/v/burgundy.svg)](https://rubygems.org/gems/burgundy)
 [![Gem](https://img.shields.io/gem/dt/burgundy.svg)](https://rubygems.org/gems/burgundy)
 
-A simple wrapper for objects (think of Burgundy as a decorator/presenter) in less than 150 lines.
+A simple wrapper for objects (think of Burgundy as a decorator/presenter) in
+less than 150 lines.
 
 ## Installation
 
@@ -43,7 +44,8 @@ Then you can instantiate it:
 user = UserPresenter.new(User.first)
 ```
 
-The `Burgundy::Item` has access to helper and route methods. Notice that the wrapper item is accessible through the `Burgundy::Item#item` method.
+The `Burgundy::Item` has access to helper and route methods. Notice that the
+wrapper item is accessible through the `Burgundy::Item#item` method.
 
 ```ruby
 class UserPresenter < Burgundy::Item
@@ -53,7 +55,8 @@ class UserPresenter < Burgundy::Item
 end
 ```
 
-You don't have to expose attributes; everything is delegated to the wrapped item.
+You don't have to expose attributes; everything is delegated to the wrapped
+item.
 
 To wrap an entire collection, just use the `Burgundy::Collection` class.
 
@@ -68,9 +71,12 @@ class WorkshopsController < ApplicationController
 end
 ```
 
-or just call `WorkshopPresenter.wrap(Workshop.sorted_by_name)`. Both ways return a `Burgundy::Collection` instance.
+or just call `WorkshopPresenter.wrap(Workshop.sorted_by_name)`. Both ways return
+a `Burgundy::Collection` instance.
 
-You may need to provide additional arguments to the item class. On your collection, all additional arguments will be delegated to the item classe, like the following example:
+You may need to provide additional arguments to the item class. On your
+collection, all additional arguments will be delegated to the item classe, like
+the following example:
 
 ```ruby
 WorkshopPresenter.wrap(Workshop.all, current_user)
@@ -84,13 +90,16 @@ class WorkshopPresenter < Burgundy::Item
 end
 ```
 
-The query will be performed only when needed, usually on the view (easier to cache). The collection is an enumerable object and can be passed directly to the `render` method. Each item will be wrapped by the provided class.
+The query will be performed only when needed, usually on the view (easier to
+cache). The collection is an enumerable object and can be passed directly to the
+`render` method. Each item will be wrapped by the provided class.
 
 ```erb
 <%= render @workshops %>
 ```
 
-Route URLs may require the default url options. Burgundy try to get them from the following objects:
+Route URLs may require the default url options. Burgundy try to get them from
+the following objects:
 
 * `Rails.configuration.action_mailer.default_url_options`
 * `Rails.application.routes.default_url_options`
@@ -103,7 +112,8 @@ config.action_controller.default_url_options = {
 }
 ```
 
-You can map attributes into a hash; I use this strategy for using presenters on API responses (so I can skip adding yet another dependency to my project).
+You can map attributes into a hash; I use this strategy for using presenters on
+API responses (so I can skip adding yet another dependency to my project).
 
 ```ruby
 class UserPresenter < Burgundy::Item

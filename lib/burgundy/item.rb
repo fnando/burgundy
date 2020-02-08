@@ -29,9 +29,9 @@ module Burgundy
       @attributes
     end
 
-    def initialize(item)
-      @item = item
-      __setobj__(item)
+    def initialize(item = nil)
+      @item = item || Guard.new(self)
+      __setobj__(@item)
     end
 
     def attributes
