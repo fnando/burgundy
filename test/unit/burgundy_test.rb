@@ -59,17 +59,6 @@ class BurgundyTest < Minitest::Test
     assert_equal [2, 3], items.first.args
   end
 
-  test "deprecates Burgundy::Item.map" do
-    message =
-      "Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead."
-
-    _, err = capture_io do
-      wrapper.map([1, 2, 3])
-    end
-
-    assert err.include?(message)
-  end
-
   test "wraps items in collection" do
     collection = Burgundy::Collection.new([1, 2, 3], wrapper)
     assert_equal 1, collection.first

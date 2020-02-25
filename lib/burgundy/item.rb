@@ -12,11 +12,6 @@ module Burgundy
       Collection.new(collection, self, *args)
     end
 
-    def self.map(collection)
-      warn "Burgundy::Item.map is deprecated; use Burgundy::Item.wrap instead."
-      wrap(collection)
-    end
-
     def self.attributes(*args)
       @attributes ||= {}
 

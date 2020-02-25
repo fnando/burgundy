@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
 Dummy::Application.routes.draw do
-  get ":username", to: "application#users", as: "profile"
+  get "users", to: "users#index"
+  get ":username", to: "users#show", as: "profile"
 end
