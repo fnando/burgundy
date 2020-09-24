@@ -6,9 +6,8 @@ module Burgundy
       @item = item
     end
 
-    def method_missing(name, *) # rubocop:disable Style/MethodMissingSuper
+    def method_missing(name, *)
       class_name = @item.class.name || @item.class.inspect
-
       error_message = %W[
         #{class_name} was initialized without a delegating object and
         didn't implement #{class_name}##{name}

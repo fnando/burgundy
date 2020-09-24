@@ -8,7 +8,7 @@ module Burgundy
       @args = args
     end
 
-    def method_missing(name, *args, &block) # rubocop:disable Style/MissingRespondToMissing, Style/MethodMissingSuper
+    def method_missing(name, *args, &block) # rubocop:disable Style/MissingRespondToMissing
       to_ary.send(name, *args, &block)
     end
 
