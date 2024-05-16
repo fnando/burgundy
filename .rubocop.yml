@@ -4,6 +4,7 @@ inherit_gem:
 
 AllCops:
   TargetRubyVersion: 3.2
+  NewCops: enable
   Exclude:
     - test/dummy/**/*
     - gemfiles/**/*
