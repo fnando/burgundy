@@ -1,7 +1,9 @@
 # Burgundy
 
+[![Tests](https://github.com/fnando/burgundy/workflows/ruby-tests/badge.svg)](https://github.com/fnando/burgundy)
 [![Gem](https://img.shields.io/gem/v/burgundy.svg)](https://rubygems.org/gems/burgundy)
 [![Gem](https://img.shields.io/gem/dt/burgundy.svg)](https://rubygems.org/gems/burgundy)
+[![MIT License](https://img.shields.io/:License-MIT-blue.svg)](https://tldrlegal.com/license/mit-license)
 
 A simple wrapper for objects (think of Burgundy as a decorator/presenter) in
 less than 150 lines.
