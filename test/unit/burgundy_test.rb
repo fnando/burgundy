@@ -8,6 +8,7 @@ class BurgundyTest < Minitest::Test
 
   test "delegates everything" do
     item = wrapper.new("hello")
+
     assert_equal "HELLO", item.upcase
   end
 
@@ -34,18 +35,18 @@ class BurgundyTest < Minitest::Test
     ].join(" ")
 
     line_reference =
-      "#{__FILE__}:29:in `block (2 levels) in <class:BurgundyTest>'"
+      "#{__FILE__}:30:in `block (2 levels) in <class:BurgundyTest>'"
 
     error_message = "#{error_message}\n#{line_reference}"
 
-    assert_equal ArgumentError, error.class
+    assert_instance_of ArgumentError, error
     assert_equal error_message, error.message
   end
 
   test "wraps items" do
     items = wrapper.wrap([1, 2, 3])
 
-    assert_equal Burgundy::Collection, items.class
+    assert_instance_of Burgundy::Collection, items
     assert_kind_of wrapper, items.first
     assert_equal 1, items.first.to_i
   end
@@ -53,7 +54,7 @@ class BurgundyTest < Minitest::Test
   test "wraps items with additional arguments" do
     items = wrapper_with_args.wrap([1], 2, 3)
 
-    assert_equal Burgundy::Collection, items.class
+    assert_instance_of Burgundy::Collection, items
     assert_kind_of wrapper_with_args, items.first
     assert_equal 1, items.first.item
     assert_equal [2, 3], items.first.args
@@ -61,11 +62,13 @@ class BurgundyTest < Minitest::Test
 
   test "wraps items in collection" do
     collection = Burgundy::Collection.new([1, 2, 3], wrapper)
+
     assert_equal 1, collection.first
   end
 
   test "delegates collection calls" do
     collection = Burgundy::Collection.new([1, 2, 3], wrapper)
+
     assert_equal 3, collection.size
   end
 
@@ -83,10 +86,12 @@ class BurgundyTest < Minitest::Test
 
   test "implements #empty?" do
     collection = Burgundy::Collection.new([1, 2, 3])
-    refute collection.empty?
+
+    refute_empty collection
 
     collection = Burgundy::Collection.new([])
-    assert collection.empty?
+
+    assert_empty collection
   end
 
   test "responds to the routes method" do
@@ -251,7 +256,7 @@ class BurgundyTest < Minitest::Test
     wrapper = Class.new(Burgundy::Item)
     collection = wrapper.wrap([1])
 
-    assert collection.respond_to?(:first)
-    refute collection.respond_to?(:missing)
+    assert_respond_to collection, :first
+    refute_respond_to collection, :missing
   end
 end

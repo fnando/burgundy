@@ -8,11 +8,11 @@ module Burgundy
       @args = args
     end
 
-    def method_missing(name, *args, &block) # rubocop:disable Style/MissingRespondToMissing
-      to_ary.send(name, *args, &block)
+    def method_missing(name, *, &) # rubocop:disable Style/MissingRespondToMissing
+      to_ary.send(name, *, &)
     end
 
-    def respond_to?(name, include_all = false)
+    def respond_to?(name, include_all = false) # rubocop:disable Style/OptionalBooleanParameter
       to_ary.respond_to?(name, include_all)
     end
 

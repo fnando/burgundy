@@ -13,7 +13,7 @@ module Burgundy
         didn't implement #{class_name}##{name}
       ].join(" ")
 
-      raise ArgumentError, "#{error_message}\n#{caller[1]}"
+      raise ArgumentError, "#{error_message}\n#{caller(2..2).first}"
     end
 
     def respond_to_missing?(*)

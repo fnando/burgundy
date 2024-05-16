@@ -1,3 +1,7 @@
+## Unreleased
+
+- Modernize code and require ruby-3.2 or newer.
+
 ## [1.0.0] - 2020-02-24
 
 - Remove `Burgundy::Item.map`.

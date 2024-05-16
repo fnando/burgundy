@@ -10,6 +10,7 @@ Bundler.setup
 
 require "minitest/utils"
 require "minitest/autorun"
+require "ostruct"
 
 ENV["RAILS_ENV"] = "test"
 

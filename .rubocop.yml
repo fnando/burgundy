@@ -3,12 +3,16 @@ inherit_gem:
   rubocop-fnando: .rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.2
   Exclude:
     - test/dummy/**/*
     - gemfiles/**/*
     - vendor/**/*
 
 Metrics/ClassLength:
+  Exclude:
+    - test/**/*
+
+Style/OpenStructUse:
   Exclude:
     - test/**/*

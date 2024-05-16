@@ -5,11 +5,12 @@ module Burgundy
     attr_reader :item
 
     def self.inherited(child)
+      super
       child.attributes(attributes)
     end
 
-    def self.wrap(collection, *args)
-      Collection.new(collection, self, *args)
+    def self.wrap(collection, *)
+      Collection.new(collection, self, *)
     end
 
     def self.attributes(*args)
@@ -24,7 +25,7 @@ module Burgundy
       @attributes
     end
 
-    def initialize(item = nil)
+    def initialize(item = nil) # rubocop:disable Lint/MissingSuper
       @item = item || Guard.new(self)
       __setobj__(@item)
     end
