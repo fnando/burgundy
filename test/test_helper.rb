@@ -27,3 +27,13 @@ class ItemWithAdditionalArgs < Burgundy::Item
     @args = args
   end
 end
+
+class ItemWithKeywordArgs < Burgundy::Item
+  attr_reader :kwargs, :a, :b
+
+  def initialize(target, a:, b:)
+    super(target)
+    @a = a
+    @b = b
+  end
+end

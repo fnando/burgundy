@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Modernize code and require ruby-3.2 or newer.
+- Allow using keyword arguments as the additional parameters.
 
 ## [1.0.0] - 2020-02-24
 

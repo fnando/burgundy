@@ -2,10 +2,11 @@
 
 module Burgundy
   class Collection
-    def initialize(items, wrapping_class = nil, *args)
+    def initialize(items, wrapping_class = nil, *args, **kwargs)
       @items = items
       @wrapping_class = wrapping_class
       @args = args
+      @kwargs = kwargs
     end
 
     def method_missing(name, *, &) # rubocop:disable Style/MissingRespondToMissing
@@ -17,11 +18,12 @@ module Burgundy
     end
 
     def to_ary
-      @to_ary ||= if @wrapping_class
-                    @items.map {|item| @wrapping_class.new(item, *@args) }
-                  else
-                    @items.to_a
-                  end
+      @to_ary ||=
+        if @wrapping_class
+          @items.map {|item| @wrapping_class.new(item, *@args, **@kwargs) }
+        else
+          @items.to_a
+        end
     end
     alias to_a to_ary
   end

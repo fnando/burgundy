@@ -9,8 +9,8 @@ module Burgundy
       child.attributes(attributes)
     end
 
-    def self.wrap(collection, *)
-      Collection.new(collection, self, *)
+    def self.wrap(collection, *, **)
+      Collection.new(collection, self, *, **)
     end
 
     def self.attributes(*args)

@@ -5,6 +5,7 @@ require "test_helper"
 class BurgundyTest < Minitest::Test
   let(:wrapper) { Class.new(Burgundy::Item) }
   let(:wrapper_with_args) { ItemWithAdditionalArgs }
+  let(:wrapper_with_kwargs) { ItemWithKeywordArgs }
 
   test "delegates everything" do
     item = wrapper.new("hello")
@@ -35,7 +36,7 @@ class BurgundyTest < Minitest::Test
     ].join(" ")
 
     line_reference =
-      "#{__FILE__}:30:in `block (2 levels) in <class:BurgundyTest>'"
+      "#{__FILE__}:31:in `block (2 levels) in <class:BurgundyTest>'"
 
     error_message = "#{error_message}\n#{line_reference}"
 
@@ -49,6 +50,15 @@ class BurgundyTest < Minitest::Test
     assert_instance_of Burgundy::Collection, items
     assert_kind_of wrapper, items.first
     assert_equal 1, items.first.to_i
+  end
+
+  test "wraps items with keyword args" do
+    items = wrapper_with_kwargs.wrap([1, 2, 3], a: "a", b: "b")
+
+    assert_instance_of Burgundy::Collection, items
+    assert_kind_of wrapper_with_kwargs, items.first
+    assert_equal "a", items.first.a
+    assert_equal "b", items.first.b
   end
 
   test "wraps items with additional arguments" do

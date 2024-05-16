@@ -1,8 +1,5 @@
 # Burgundy
 
-[![Travis-CI](https://travis-ci.org/fnando/burgundy.svg)](https://travis-ci.org/fnando/burgundy)
-[![Code Climate](https://codeclimate.com/github/fnando/burgundy/badges/gpa.svg)](https://codeclimate.com/github/fnando/burgundy)
-[![Test Coverage](https://codeclimate.com/github/fnando/burgundy/badges/coverage.svg)](https://codeclimate.com/github/fnando/burgundy/coverage)
 [![Gem](https://img.shields.io/gem/v/burgundy.svg)](https://rubygems.org/gems/burgundy)
 [![Gem](https://img.shields.io/gem/dt/burgundy.svg)](https://rubygems.org/gems/burgundy)
 
@@ -14,7 +11,7 @@ less than 150 lines.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'burgundy'
+gem "burgundy"
 ```
 
 And then execute:
@@ -58,21 +55,28 @@ end
 You don't have to expose attributes; everything is delegated to the wrapped
 item.
 
-To wrap an entire collection, just use the `Burgundy::Collection` class.
+To wrap an entire collection, just use the `Burgundy::Item.wrap` class.
+
+```ruby
+class WorkshopsController < ApplicationController
+  def index
+    @workshops = WorkshopPresenter.wrap(Workshop.sorted_by_name)
+  end
+end
+```
+
+Alternatively, you can also use the `Burgundy::Collection` class.
 
 ```ruby
 class WorkshopsController < ApplicationController
   def index
     @workshops = Burgundy::Collection.new(
-      Workshop.sorted_by_name,
-      WorkshopPresenter
+      WorkshopPresenter,
+      Workshop.sorted_by_name
     )
   end
 end
 ```
-
-or just call `WorkshopPresenter.wrap(Workshop.sorted_by_name)`. Both ways return
-a `Burgundy::Collection` instance.
 
 You may need to provide additional arguments to the item class. On your
 collection, all additional arguments will be delegated to the item classe, like
@@ -90,6 +94,24 @@ class WorkshopPresenter < Burgundy::Item
 end
 ```
 
+You can also use keyword arguments to pass in additional objects.
+
+```ruby
+WorkshopPresenter.wrap(Workshop.all, current_user:)
+Burgundy::Collection.new(Workshop.all, WorkshopPresenter, current_user:)
+
+class WorkshopPresenter < Burgundy::Item
+  def initialize(workshop, current_user:)
+    super(workshop)
+    @current_user = current_user
+  end
+end
+```
+
+> [!NOTE]
+>
+> The target object will always be a positional argument.
+
 The query will be performed only when needed, usually on the view (easier to
 cache). The collection is an enumerable object and can be passed directly to the
 `render` method. Each item will be wrapped by the provided class.
@@ -101,8 +123,8 @@ cache). The collection is an enumerable object and can be passed directly to the
 Route URLs may require the default url options. Burgundy try to get them from
 the following objects:
 
-* `Rails.configuration.action_mailer.default_url_options`
-* `Rails.application.routes.default_url_options`
+- `Rails.configuration.action_mailer.default_url_options`
+- `Rails.application.routes.default_url_options`
 
 So you can just put this on your environment file
 
@@ -113,7 +135,7 @@ config.action_controller.default_url_options = {
 ```
 
 You can map attributes into a hash; I use this strategy for using presenters on
-API responses (so I can skip adding yet another dependency to my project).
+API responses (so you can skip adding yet another dependency to your projects).
 
 ```ruby
 class UserPresenter < Burgundy::Item
@@ -143,7 +165,7 @@ If you want to remap an attribute, provide a hash.
 
 ```ruby
 class UserPresenter < Burgundy::Item
-  attributes :name, :email, :username => :login
+  attributes :name, :email, username: :login
 
   def profile_url
     routes.profile_url(item.username)
@@ -168,21 +190,19 @@ Copyright (c) 2013 Nando Vieira
 
 MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
